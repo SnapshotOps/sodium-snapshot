@@ -28,10 +28,9 @@ public class ClientLevelMixin implements BiomeSeedProvider {
                              int serverSimulationDistance,
                              LevelExtractor levelExtractor,
                              boolean isDebug,
-                             long biomeZoomSeed,
                              int seaLevel,
                              CallbackInfo ci) {
-        this.biomeZoomSeed = biomeZoomSeed;
+        this.biomeZoomSeed = 0L;
     }
 
     @Override

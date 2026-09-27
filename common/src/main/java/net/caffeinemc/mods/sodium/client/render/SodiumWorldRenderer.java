@@ -143,6 +143,8 @@ public class SodiumWorldRenderer {
             this.uniformBufferManager.delete();
             this.uniformBufferManager = null;
         }
+        this.lastCameraPos = null;
+        this.cullMatrix = null;
     }
 
     private void unloadLevel() {
@@ -333,6 +335,8 @@ public class SodiumWorldRenderer {
 
         var tracker = ChunkTrackerHolder.get(this.level);
         ChunkTracker.forEachChunk(tracker.getReadyChunks(), this.renderSectionManager::onChunkAdded);
+        this.renderSectionManager.notifyChangedCamera();
+        this.renderSectionManager.markGraphDirty();
     }
 
     public void extractBlockEntities(Camera camera, float tickDelta, Long2ObjectMap<SortedSet<BlockDestructionProgress>> progression, LevelRenderState levelRenderState) {

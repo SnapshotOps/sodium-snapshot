@@ -130,6 +130,15 @@ public class LevelExtractorMixin {
         this.checkRenderer();
         this.renderer.scheduleRebuildForChunk(x, y, z, important);
     }
+    @Inject(method = "extract", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;invalidateCompiledGeometry(Lnet/minecraft/client/multiplayer/ClientLevel;Lnet/minecraft/client/Options;Lnet/minecraft/client/Camera;Lnet/minecraft/client/color/block/BlockColors;)V", shift = At.Shift.AFTER))
+    private void sodium$cullTerrainAfterInvalidate(DeltaTracker deltaTracker,
+                                                   Camera camera,
+                                                   float deltaPartialTick,
+                                                   CallbackInfo ci,
+                                                   @Local Frustum cullFrustum) {
+        this.cullTerrain(deltaTracker, camera, deltaPartialTick, ci, cullFrustum);
+    }
+
     /**
      * @reason Redirect the terrain setup phase to our renderer
      * @author JellySquid
